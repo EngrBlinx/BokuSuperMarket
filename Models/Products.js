@@ -24,11 +24,8 @@ const productSchema = new mongose.Schema({
         type: Boolean,
         default: true
     },
-    
-        color: {
-            type: String,
-            
-
+    color: {
+        type: String,
     }
     
 },
