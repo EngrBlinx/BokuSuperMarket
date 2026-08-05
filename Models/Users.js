@@ -32,10 +32,10 @@ const userSchema = new mongose.Schema({
         enum: ['admin', 'user'],
         default: 'user'
     },
-    
-    timestamps: true //Date created and updated at
-    
-});
+        
+},
+{timestamps: true}
+);
 
 //create model from schema
 const User = mongose.model('User', userSchema);

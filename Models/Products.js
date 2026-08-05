@@ -34,6 +34,6 @@ const productSchema = new mongose.Schema({
 );  
 
 //create model from schema
-const Product = mongose.model('Product', productSchema);
+const productModel = mongose.model('Product', productSchema);
 
-module.exports = Product; //export the model to be used in other files
+module.exports = productModel; //export the model to be used in other files
