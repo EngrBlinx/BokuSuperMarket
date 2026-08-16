@@ -19,7 +19,7 @@ const userSchema = new mongose.Schema({
         type: String,
         required: true
     },
-    hasAtmCard: {
+    hasAdminAccess: {
         type: Boolean,
         default: false
     },
@@ -29,7 +29,7 @@ const userSchema = new mongose.Schema({
     },
     role: {
         type: String,
-        enum: ['admin', 'user'],
+        enum: ['superAdmin', 'storeKeeper', 'salesperson'],
         default: 'user'
     },
         
@@ -39,3 +39,4 @@ const userSchema = new mongose.Schema({
 
 //create model from schema
 const User = mongose.model('User', userSchema);
+module.exports = User;
