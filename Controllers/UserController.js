@@ -1,5 +1,6 @@
 const User = require('../Models/Users');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 
 //Create a user
@@ -54,7 +55,7 @@ exports.loginUser = async (req, res) =>{
             return res.status(400).json({ message: 'Provide all required fields' });
 
         //check if user exists
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ email }); //findOne() returns the user object or null if not found
         if(!existingUser)
             return res.status(404).json({ message: 'User not found' });
 
@@ -64,9 +65,8 @@ exports.loginUser = async (req, res) =>{
             return res.status(401).json({ message: 'Your username and password did not match' });
 
         //generate a token
-        const jwt = require('jsonwebtoken');
-        const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ message: 'Login Successful!!!' });
+        const token = jwt.sign({ id: existingUser._id, email: existingUser.email, name: existingUser.name, role: existingUser.role, hasAdminAccess: existingUser.hasAdminAccess }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        res.status(201).json({ message: 'Login Successful!!!', token });
     }catch (error) {
         res.status(500).json({ message: 'Error logging in', error: error.message });
     }
