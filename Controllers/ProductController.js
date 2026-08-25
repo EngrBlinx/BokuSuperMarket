@@ -1,6 +1,7 @@
 const { image } = require('../Config/cloudinaryConfig');
 const upload = require('../Middleware/upload');
 const Product = require('../Models/Products');
+const sendEmail = require('../Middleware/Emailsender');
 const { findById } = require('../Models/Users');
 
 //create a product without image
@@ -52,6 +53,12 @@ exports.createProductWithImage = async (req, res) => {
             });
 
             await product.save();
+
+            //Send email to the admin that a new product has been created
+            const subject = 'New Product Created';
+            const body = `A new product has been created:\n\nName: ${name}\nSize: ${size}\nDescription: ${description}\nPrice: ${price}\nQuantity: ${quantity}\nColor: ${color}`;
+            await sendEmail('anyadikennadozie3@gmail.com', subject, body);
+
             res.status(201).json({message: 'product added successfully', product});
         }catch(error){
             res.status(500).json({message: 'Error adding product', error: error.message});
