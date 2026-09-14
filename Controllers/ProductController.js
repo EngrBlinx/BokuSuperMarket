@@ -69,7 +69,7 @@ exports.createProductWithImage = async (req, res) => {
 //update a product
 exports.updateProduct = async (req, res) => {
     try {
-        const { id } = req.params; //where id is the product id to be updated
+        const { id } = req.params; //where id is the id of the product to be updated
         const { name, size, description, price, quantity, color } = req.body;
 
         const product = await Product.findByIdAndUpdate(id, { name, size, description, price, quantity, color }, { new: true });

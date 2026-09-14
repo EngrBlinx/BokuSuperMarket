@@ -1,11 +1,11 @@
 const express = require('express');
+//import router
+const router = express.Router();
 
 //Import middlewares
 const { protect } = require('../Middleware/auth');
 const { authorize } = require('../Middleware/role');
 
-//import router
-const router = express.Router();
 
 const userController = require('../Controllers/UserController');
 
