@@ -65,7 +65,7 @@ exports.loginUser = async (req, res) =>{
             return res.status(401).json({ message: 'Your username and password did not match' });
 
         //generate a token
-        const token = jwt.sign({ id: existingUser._id, email: existingUser.email, name: existingUser.name, role: existingUser.role, hasAdminAccess: existingUser.hasAdminAccess }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = await jwt.sign({ id: existingUser._id, email: existingUser.email, name: existingUser.name, role: existingUser.role, hasAdminAccess: existingUser.hasAdminAccess }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ message: 'Login Successful!!!', token });
     }catch (error) {
         res.status(500).json({ message: 'Error logging in', error: error.message });
