@@ -25,17 +25,17 @@ exports.createUser = async (req, res) => {
 
         //encrypt password
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         //create new user
         const user = new User({
-            name: req.body.name,
-            email: req.body.email,
+            name,
+            email,
             password: hashedPassword,
-            gender: req.body.gender,
-            phone: req.body.phone,
-            role: req.body.role || 'user', //user is the default value
-            hasAdminAccess: req.body.hasAdminAccess || false
+            gender,
+            phone,
+            role: role || 'user', //user is the default value
+            hasAdminAccess: hasAdminAccess || false
         });
 
         await user.save();
